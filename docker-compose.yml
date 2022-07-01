@@ -1,0 +1,19 @@
+services:
+  caddy-web-app:
+    image: caddy-web-app
+    hostname: caddy-web-app
+    container_name: caddy-web-app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - caddy:/data
+    ports:
+      - 80:80
+      - 443:443
+      - 2015:2015
+    restart: unless-stopped
+
+volumes:
+  caddy:
+

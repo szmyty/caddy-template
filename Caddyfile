@@ -1,0 +1,22 @@
+# Global options: https://caddyserver.com/docs/caddyfile/options
+{
+    # General Options: https://caddyserver.com/docs/caddyfile/options#general-options
+    # debug
+    http_port   80
+    https_port  443
+    default_bind    {$SITE_ADDRESS}
+    # storage file_system /path/to/custom/location
+    storage_clean_interval  24h
+    renew_interval  10m
+
+    # TLS Options: https://caddyserver.com/docs/caddyfile/options#tls-options
+    email   {$EMAIL}
+
+
+}
+
+localhost {
+    encode zstd gzip
+    templates
+    file_server browse
+}
