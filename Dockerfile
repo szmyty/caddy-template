@@ -1,6 +1,7 @@
 # Stage 1: Build production web application.
 FROM node:latest AS builder
 
+# Set working directory to
 WORKDIR /app
 
 # Install web application dependencies.
@@ -25,5 +26,11 @@ ADD entrypoint.sh .
 COPY --from=builder /app/build .
 
 EXPOSE 2015
+
+# Make data directory writeable.
+# https://caddyserver.com/docs/automatic-https#storage
+RUN chmod a+rwx -R $DATA_DIR
+
+RUN xcaddy build --with github.com/caddy-dns/googleclouddns
 
 ENTRYPOINT sh entrypoint.sh

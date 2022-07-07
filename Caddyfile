@@ -5,14 +5,21 @@
     http_port   80
     https_port  443
     default_bind    {$SITE_ADDRESS}
-    # storage file_system /path/to/custom/location
+    storage file_system {$DATA_DIR}
     storage_clean_interval  24h
     renew_interval  10m
 
     # TLS Options: https://caddyserver.com/docs/caddyfile/options#tls-options
     email   {$EMAIL}
+    acme_ca {$ACME_CA}
 
+}
 
+tls {
+  dns googleclouddns {
+    gcp_project {$GCP_PROJECT}
+    gcp_application_default {$GOOGLE_APPLICATION_CREDENTIALS}
+  }
 }
 
 localhost {
